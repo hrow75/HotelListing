@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace HotelListing.Repository
 {
-    public class UnityofWork : IUnitofWork
+    public class UnitofWork : IUnitofWork
     {
         private readonly DatabaseContext _context;
         private IGenericRepository<Country> _countries;
         private IGenericRepository<Hotel> _hotels;
 
-        public UnityofWork(DatabaseContext context)
+        public UnitofWork(DatabaseContext context)
         {
             _context = context;
         }
