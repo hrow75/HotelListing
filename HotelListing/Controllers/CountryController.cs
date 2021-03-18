@@ -1,4 +1,6 @@
-﻿using HotelListing.IRepository;
+﻿using AutoMapper;
+using HotelListing.IRepository;
+using HotelListing.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,20 +16,24 @@ namespace HotelListing.Controllers
     public class CountryController : ControllerBase
     {
         private readonly IUnitofWork _unitofWork;
-        private readonly ILogger _logger;
+        private readonly ILogger<CountryController> _logger;
+        private readonly IMapper _mapper;
 
-        public CountryController(IUnitofWork unitofWork, ILogger logger)
+        public CountryController(IUnitofWork unitofWork, ILogger<CountryController> logger,
+            IMapper mapper)
         {
             _unitofWork = unitofWork;
             _logger = logger;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetCountries()
         {
             try
             {
-                var countries = _unitofWork.Countries.GetAll();
-                return Ok(countries);
+                var countries = await _unitofWork.Countries.GetAll();
+                var results = _mapper.Map<IList<CountryDTO>>(countries);
+                return Ok(results);
             }
             catch (Exception ex)
             {
