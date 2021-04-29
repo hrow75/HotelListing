@@ -1,4 +1,5 @@
 ﻿using HotelListing.Controllers.Data;
+using HotelListing.Data;
 using HotelListing.IRepository;
 using System;
 using System.Collections.Generic;
