@@ -40,7 +40,7 @@ namespace HotelListing.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
         {
-            _logger.LogInformation($"Registration Attempt for {userDTO.Email}");
+            _logger.LogInformation($"Registration Attempt for {userDTO.Email} ");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -60,14 +60,13 @@ namespace HotelListing.Controllers
                     }
                     return BadRequest(ModelState);
                 }
-
                 await _userManager.AddToRolesAsync(user, userDTO.Roles);
                 return Accepted();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something Went Wrong is the {nameof(Register)}");
-                return Problem($"Something Went Wrong is the {nameof(Register)}", statusCode: 500);
+                _logger.LogError(ex, $"Something Went Wrong in the {nameof(Register)}");
+                return Problem($"Something Went Wrong in the {nameof(Register)}", statusCode: 500);
             }
         }
 
@@ -75,7 +74,7 @@ namespace HotelListing.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDTO userDTO)
         {
-            _logger.LogInformation($"Login Attempt for {userDTO.Email}");
+            _logger.LogInformation($"Login Attempt for {userDTO.Email} ");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -92,8 +91,8 @@ namespace HotelListing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Something Went Wrong is the {nameof(Login)}");
-                return Problem($"Something Went Wrong is the {nameof(Login)}", statusCode: 500);
+                _logger.LogError(ex, $"Something Went Wrong in the {nameof(Login)}");
+                return Problem($"Something Went Wrong in the {nameof(Login)}", statusCode: 500);
             }
         }
     }
