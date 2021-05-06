@@ -18,7 +18,6 @@ namespace HotelListing.Services
         private readonly UserManager<ApiUser> _userManager;
         private readonly IConfiguration _configuration;
         private ApiUser _user;
-
         public AuthManager(UserManager<ApiUser> userManager,
             IConfiguration configuration)
         {
@@ -38,24 +37,25 @@ namespace HotelListing.Services
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var jwtSettings = _configuration.GetSection("Jwt");
-            var experation = DateTime.Now.AddMinutes(Convert.ToDouble
-                (jwtSettings.GetSection("lifetime").Value));
+            var expiration = DateTime.Now.AddMinutes(Convert.ToDouble(
+                jwtSettings.GetSection("lifetime").Value));
 
             var token = new JwtSecurityToken(
-                issuer: jwtSettings.GetSection("Issuer").Value, 
-                claims: claims, 
-                expires: experation,
+                issuer: jwtSettings.GetSection("Issuer").Value,
+                claims: claims,
+                expires: expiration,
                 signingCredentials: signingCredentials
                 );
+
             return token;
         }
 
         private async Task<List<Claim>> GetClaims()
         {
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, _user.UserName)
-            };
+             {
+                 new Claim(ClaimTypes.Name, _user.UserName)
+             };
 
             var roles = await _userManager.GetRolesAsync(_user);
 

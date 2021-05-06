@@ -18,7 +18,7 @@ namespace HotelListing
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File(
                     path: "c:\\hotellistings\\logs\\log-.txt",
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:1j}{NewLine}{Exception}",
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
                     rollingInterval: RollingInterval.Day,
                     restrictedToMinimumLevel: LogEventLevel.Information
                 ).CreateLogger();
@@ -29,13 +29,13 @@ namespace HotelListing
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Application Failed to Start");
+                Log.Fatal(ex, "Application Failed to start");
             }
             finally
             {
                 Log.CloseAndFlush();
             }
-            
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

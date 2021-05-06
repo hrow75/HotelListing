@@ -23,7 +23,7 @@ namespace HotelListing.Configurations.Entities
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
                 }
-                );
+            );
         }
     }
 }

@@ -1,6 +1,6 @@
 using AutoMapper;
 using HotelListing.Configurations;
-using HotelListing.Controllers.Data;
+using HotelListing.Data;
 using HotelListing.IRepository;
 using HotelListing.Repository;
 using HotelListing.Services;
@@ -36,23 +36,24 @@ namespace HotelListing
         {
 
             services.AddDbContext<DatabaseContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
+                options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
+
 
             services.AddAuthentication();
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);
 
             services.AddCors(o => {
-                o.AddPolicy("CorsPolicy", builder =>
+                o.AddPolicy("AllowAll", builder =>
                     builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
 
-            services.AddAutoMapper(typeof(MapperInitillizer));
+            services.AddAutoMapper(typeof(MapperInitilizer));
 
-            services.AddTransient<IUnitofWork, UnitofWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthManager, AuthManager>();
 
             services.AddSwaggerGen(c =>
@@ -61,8 +62,9 @@ namespace HotelListing
             });
 
             services.AddControllers().AddNewtonsoftJson(op =>
-                op.SerializerSettings.ReferenceLoopHandling = 
+                op.SerializerSettings.ReferenceLoopHandling =
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,12 +74,13 @@ namespace HotelListing
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelListing v1"));
 
             app.UseHttpsRedirection();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors("AllowAll");
 
             app.UseRouting();
 

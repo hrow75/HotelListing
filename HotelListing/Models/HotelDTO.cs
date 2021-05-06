@@ -1,14 +1,11 @@
-﻿using HotelListing.Controllers.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelListing.Models
 {
-   
     public class CreateHotelDTO
     {
         [Required]
@@ -16,14 +13,14 @@ namespace HotelListing.Models
         public string Name { get; set; }
 
         [Required]
-        [StringLength(maximumLength: 95, ErrorMessage = "Address Is Too Long")]
+        [StringLength(maximumLength: 250, ErrorMessage = "Address Name Is Too Long")]
         public string Address { get; set; }
 
         [Required]
-        [Range(1,5)]
+        [Range(1, 5)]
         public double Rating { get; set; }
 
-        //[Required]
+        //////[Required]
         public int CountryId { get; set; }
     }
 
@@ -32,11 +29,12 @@ namespace HotelListing.Models
 
     }
 
-    public class HotelDTO : CreateCountryDTO
+    public class HotelDTO : CreateHotelDTO
     {
         public int Id { get; set; }
-
         public CountryDTO Country { get; set; }
     }
+
+
 
 }

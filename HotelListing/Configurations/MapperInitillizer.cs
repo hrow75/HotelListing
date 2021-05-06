@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HotelListing.Controllers.Data;
 using HotelListing.Data;
 using HotelListing.Models;
 using System;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HotelListing.Configurations
 {
-    public class MapperInitillizer : Profile
+    public class MapperInitilizer : Profile
     {
-        public MapperInitillizer()
+        public MapperInitilizer()
         {
             CreateMap<Country, CountryDTO>().ReverseMap();
             CreateMap<Country, CreateCountryDTO>().ReverseMap();

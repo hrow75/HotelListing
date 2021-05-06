@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelListing.Models
 {
-    
+
     public class CreateCountryDTO
     {
         [Required]
@@ -25,7 +25,6 @@ namespace HotelListing.Models
     public class CountryDTO : CreateCountryDTO
     {
         public int Id { get; set; }
-
         public IList<HotelDTO> Hotels { get; set; }
     }
 }
